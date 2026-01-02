@@ -1,28 +1,60 @@
 import { computed, defineComponent, h, onMounted, PropType, useTemplateRef, watch } from 'vue'
 import JsBarcode from 'jsbarcode'
-import type {
-    JsBarcodeOptions,
-    JsBarcodeFormat,
-    JsBarcodeFontOptions,
-    JsBarcodeFontAlign,
-    JsBarcodeFontPosition,
-    JsBarcodeHex,
-} from './types'
 
-export type {
-    JsBarcodeFormat,
-    JsBarcodeFontOptions,
-    JsBarcodeFontAlign,
-    JsBarcodeFontPosition,
-    JsBarcodeHex,
-    JsBarcodeOptions
-} from './types'
+export type JsBarcodeFormat =
+    | 'CODE128' | 'code128'
+    | 'CODE128A' | 'code128a'
+    | 'CODE128B' | 'code128b'
+    | 'CODE128C' | 'code128c'
+    | 'EAN13' | 'ean13'
+    | 'EAN8' | 'ean8'
+    | 'EAN5' | 'ean5'
+    | 'EAN2' | 'ean2'
+    | 'UPC' | 'upc'
+    | 'CODE39' | 'code39'
+    | 'ITF14' | 'itf14'
+    | 'MSI' | 'msi'
+    | 'MSI10' | 'msi10'
+    | 'MSI11' | 'msi11'
+    | 'MSI1010' | 'msi1010'
+    | 'MSI1111' | 'msi1111'
+    | 'PHARMACODE' | 'pharmacode'
+    | 'CODABAR' | 'codabar'
+    | 'CODE93' | 'code93'
+
+export type JsBarcodeFontOptions = 'bold' | 'italic' | 'bold italic'
+export type JsBarcodeFontAlign = 'left' | 'center' | 'right'
+export type JsBarcodeFontPosition = 'top' | 'bottom'
+export type JsBarcodeHex= `#${string}`
+
+export type JsBarcodeOptions = {
+    format?: JsBarcodeFormat
+    width?: number
+    height?: number
+    displayValue?: boolean
+    text?: string
+    fontOptions?: JsBarcodeFontOptions
+    font?: string
+    textAlign?: JsBarcodeFontAlign
+    textPosition?: JsBarcodeFontPosition
+    textMargin?: number
+    fontSize?: number
+    background?: JsBarcodeHex
+    lineColor?: JsBarcodeHex
+    margin?: number
+    marginTop?: number
+    marginBottom?: number
+    marginLeft?: number
+    marginRight?: number
+    flat?: boolean
+    valid?(valid: boolean): void
+}
 
 export const VueBarcode = defineComponent({
     displayName: 'VueBarcode',
     props: {
         value: {
-            type: String as PropType<string>,
+            type: [String, null] as PropType<string | null>,
             required: true,
         },
         options: Object as PropType<JsBarcodeOptions>,
@@ -93,7 +125,6 @@ export const VueBarcode = defineComponent({
         const barcodeElement = useTemplateRef<SVGSVGElement>('barcode')
 
         const options = computed<JsBarcodeOptions>(() => ({
-            ...props.options,
             format: props.format,
             width: Number(props.width),
             height: Number(props.height),
@@ -114,10 +145,11 @@ export const VueBarcode = defineComponent({
             marginRight: props.marginRight ? Number(props.marginRight) : undefined,
             flat: props.flat,
             valid: props.valid,
+            ...props.options,
         }))
 
         const generateBarcode = (): void => {
-            if (barcodeElement.value) {
+            if (props.value && barcodeElement.value) {
                 JsBarcode(barcodeElement.value, props.value, options.value)
             }
         }
@@ -126,7 +158,7 @@ export const VueBarcode = defineComponent({
             generateBarcode()
         })
 
-        watch([(): string => props.value, options], (): void => {
+        watch([() => props.value, options], (): void => {
             generateBarcode()
         })
 

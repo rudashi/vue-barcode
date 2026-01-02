@@ -1,6 +1,6 @@
 {
   "name": "@rudashi/vue-barcode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "./dist/vue-barcode.umd.js",
   "module": "./dist/vue-barcode.es.js",
