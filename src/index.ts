@@ -144,7 +144,7 @@ export const VueBarcode = defineComponent({
             marginLeft: props.marginLeft ? Number(props.marginLeft) : undefined,
             marginRight: props.marginRight ? Number(props.marginRight) : undefined,
             flat: props.flat,
-            valid: props.valid,
+            ...(props.valid !== undefined ? { valid: props.valid } : {}),
             ...props.options,
         }))
 
