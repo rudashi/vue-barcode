@@ -32,16 +32,16 @@
   "homepage": "https://github.com/rudashi/vue-barcode#readme",
   "description": "Vue barcode component based on jsbarcode",
   "dependencies": {
-    "jsbarcode": "^3.12.1",
-    "vue": "^3.5.26"
+    "jsbarcode": "^3.12",
+    "vue": "^3.5"
   },
   "devDependencies": {
-    "@types/jsbarcode": "^3.11.4",
-    "@vue/test-utils": "^2.4.6",
-    "jsdom": "^27.4.0",
+    "@types/jsbarcode": "^3.11",
+    "@vue/test-utils": "^2.4",
+    "jsdom": "^28.0",
     "typescript": "^5.9",
     "vite": "^7.3",
-    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-dts": "^4.5",
     "vitest": "^4.0"
   }
 }
