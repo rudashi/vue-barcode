@@ -1,17 +1,26 @@
 {
   "name": "@rudashi/vue-barcode",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "type": "module",
   "main": "./dist/vue-barcode.umd.js",
   "module": "./dist/vue-barcode.es.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/vue-barcode.es.js",
+      "require": "./dist/vue-barcode.umd.js"
+    }
+  },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "vitest"
+    "test": "vitest",
+    "prepublishOnly": "npm test -- --run && npm run build"
   },
   "repository": {
     "type": "git",
@@ -31,7 +40,7 @@
   },
   "homepage": "https://github.com/rudashi/vue-barcode#readme",
   "description": "Vue barcode component based on jsbarcode",
-  "dependencies": {
+  "peerDependencies": {
     "jsbarcode": "^3.12",
     "vue": "^3.5"
   },
